@@ -132,9 +132,15 @@ class Wialon(object):
                 params = json.dumps(argc, ensure_ascii=False)
         else:
             params = json.dumps(kwargs, ensure_ascii=False)
+        
+        # group_update_units 2 bottom spaces fix bug
+        action = action.replace('_', '/', 1)
+        if action == 'unit/group_update_units':
+            action = action.replace('_', '/', 1)
+            action = action.replace('/', '_', 1) 
 
         params = {
-            'svc': action.replace('_', '/', 1),
+            'svc': action  #.replace('_', '/', 1),
             'params': params.encode("utf-8"),
             'sid': self.sid
         }
